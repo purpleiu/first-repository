@@ -1,0 +1,140 @@
+spring:
+  profiles:
+    active: dev
+
+--- # dev
+spring:
+  profiles: dev
+  datasource:
+#    url: jdbc:mysql://www.qingsaas.cn:3306/eom_core_dev?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true
+#      username: root
+#      password: Spring2@18
+#      druid:
+#        initial-size: 10
+#        min-idle: 10
+#        max-active: 20
+#        stat-view-servlet:
+#          login-username: druid
+#          login-password: druid
+#        web-stat-filter:
+#          exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+    druid:
+      #MySQL
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://www.qingsaas.cn:3306/needle_framework_dev?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password:Spring2@18
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 6000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+  flyway:
+    enabled: true
+    schemas: needle_framework_dev
+    table: db_version
+    locations: classpath:db/migration
+    validate-on-migrate: false
+    baseline-on-migrate: true
+    placeholder-replacement: false
+
+--- # sit
+spring:
+  profiles: sit
+  datasource:
+    url: jdbc:mysql://172.18.69.123:3306/eom_core_sit?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true
+    username: eom_pro
+    password: Wp&28@23_oz
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 20
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+
+  flyway:
+    enabled: false
+    schemas: eom_core_sit
+    table: db_version
+    locations: classpath:/db
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    placeholder-replacement: false
+--- # uat
+spring:
+  profiles: uat
+  datasource:
+    url: jdbc:mysql://192.168.1.10:6033/eom_core_uat?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true
+    username: proxysql_user
+    password: 111#roxySQL
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 20
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      timeBetweenEvictionRunsMillis: 500
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+  flyway:
+    enabled: false
+    schemas: eom_core_uat
+    table: db_version
+    locations: classpath:/db
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    placeholder-replacement: false
+
+--- # prod
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://42.236.69.202:3306/eom_core_prod?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true
+    username: root
+    password: 111#OE0^CgU
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 20
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      timeBetweenEvictionRunsMillis: 500
+      stat-view-servlet:
+        login-username: druid
+        login-password: druid
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+
+  flyway:
+    enabled: false
+    schemas: eom_core_prod
+    table: db_version
+    locations: classpath:/db
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    placeholder-replacement: false
